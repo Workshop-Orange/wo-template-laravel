@@ -1,1 +1,1 @@
-# wo-template-laravel
+# Workshop Orange Template Laravel
