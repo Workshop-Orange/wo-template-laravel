@@ -111,3 +111,16 @@ if [ "$LAGOON_ENVIRONMENT" == "local" ] && [ "$SERVICE_NAME" == "cli" ]; then
   fi
 fi
 
+if [ -f "artisan" ] && [ -z "$APP_KEY" ]; then
+      APP_KEY=`php artisan key:generate --show`
+      echo "Settng APP_KEY to $APP_KEY"
+      export APP_KEY=$APP_KEY
+	
+      if [ -f "/app/.env" ]; then
+        APP_KEY_EXISTS=`grep APP_KEY .env || echo`
+      fi
+
+      if [ -z "$APP_KEY_EXISTS" ]; then
+        echo "APP_KEY=$APP_KEY" >> /app/.env
+      fi
+fi

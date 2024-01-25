@@ -19,6 +19,8 @@ rm -rf tests/
 rm -rf vendor/
 rm -rf vendor/
 rm -rf vite.config.js
+rm -rf package-lock.json
+rm -rf node_modules
 
 rm -rf storage
 
