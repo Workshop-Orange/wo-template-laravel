@@ -82,19 +82,20 @@ if [ "$LAGOON_ENVIRONMENT_TYPE" == "production" ]; then
     php artisan optimize
   fi
 elif [ "$SERVICE_NAME" == "cli" ]; then
+  if [ -f "artisan" ]; then
     TABLES=`echo "show tables" | mysql -h$DB_HOST -u$DB_USERNAME -p$DB_PASSWORD $DB_DATABASE`
 
     if [ -z "$TABLES" ]; then
       echo "Loading up a new database"
-      
-      if [ -f "artisan" ]; then
-        php artisan db:seed
-      fi
-
+      php artisan db:seed
     else
       echo "There is already a database loaded up"
     fi
+  else
+    echo "Skipping DB loading check - Laravel is not installed"
+  fi
 fi
+
 
 if [ "$LAGOON_ENVIRONMENT" == "local" ] && [ "$SERVICE_NAME" == "cli" ]; then
   if [ -f "composer.json" ]; then
