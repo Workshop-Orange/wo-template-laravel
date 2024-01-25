@@ -65,7 +65,7 @@ fix-permissions /app/storage/img/invoice_file
 
 cd /app
 
-if [ -f "artisan" ]; then
+if [ -f "artisan" ] && [ "$LAGOON_ENVIRONMENT" != "local" ] ; then
   php artisan config:clear
   php artisan route:clear
   php artisan view:clear
@@ -81,7 +81,7 @@ if [ "$LAGOON_ENVIRONMENT_TYPE" == "production" ]; then
     php artisan event:cache
     php artisan optimize
   fi
-elif [ "$SERVICE_NAME" == "cli" ]; then
+elif [ "$LAGOON_ENVIRONMENT_TYPE" == "development" ] && [ "$SERVICE_NAME" == "cli" ]; then
   if [ -f "artisan" ]; then
     TABLES=`echo "show tables" | mysql -h$DB_HOST -u$DB_USERNAME -p$DB_PASSWORD $DB_DATABASE`
 
