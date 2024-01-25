@@ -65,8 +65,6 @@ fix-permissions /app/storage/img/invoice_file
 
 cd /app
 
-export
-
 if [ -f "artisan" ] && [ "$LAGOON_ENVIRONMENT" != "local" ] ; then
   php artisan config:clear
   php artisan route:clear
@@ -112,7 +110,7 @@ if [ "$LAGOON_ENVIRONMENT" == "local" ] && [ "$SERVICE_NAME" == "cli" ]; then
 fi
 
 if [ -f "artisan" ] && [ -z "$APP_KEY" ]; then
-      APP_KEY=`php artisan key:generate --show`
+      APP_KEY=`php artisan key:generate --show --no-ansi`
       echo "Settng APP_KEY to $APP_KEY"
       export APP_KEY=$APP_KEY
 	

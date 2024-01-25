@@ -25,3 +25,5 @@ rm -rf node_modules
 rm -rf storage
 
 cp .gitignore.default .gitignore
+
+rm -rf .env
