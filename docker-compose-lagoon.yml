@@ -1,12 +1,12 @@
 version: '2.3'
 
 x-lagoon-project:
-  &lagoon-project iscoutla
+  &lagoon-project wo-template-laravel
 
 x-environment:
   &default-environment
     LAGOON_PROJECT: *lagoon-project
-    LAGOON_ROUTE: http://wo-webapp-iscoutla-us.docker.amazee.io
+    LAGOON_ROUTE: http://wo-template-laravel.docker.amazee.io
     LAGOON_ENVIRONMENT: local
     #XDEBUG_ENABLE: "true"
 
@@ -19,7 +19,7 @@ services:
     build:
       context: .
       dockerfile: lagoon/cli.dockerfile
-    image: &cli-image ${COMPOSE_PROJECT_NAME:-wo-webapp-iscoutla-us}-cli 
+    image: &cli-image wo-template-laravel-cli 
     labels:
       lagoon.type: cli-persistent
       lagoon.persistent.name: nginx
