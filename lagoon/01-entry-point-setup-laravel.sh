@@ -96,17 +96,13 @@ elif [ "$SERVICE_NAME" == "cli" ]; then
     fi
 fi
 
-if [ "$SERVICE_NAME" == "cli" ]; then
+if [ "$LAGOON_ENVIRONMENT" == "local" && "$LAGOON" == "cli" ]; then
   if [ -f "composer.json" ]; then
     if [ ! -f "/app/vendor/autoload.php" ]; then
-      if [ "$LAGOON_ENVIRONMENT" == "local" ]; then
-        COMPOSER_MEMORY_LIMIT=-1 composer install --no-interaction --prefer-dist --optimize-autoloader
-      fi
+      COMPOSER_MEMORY_LIMIT=-1 composer install --no-interaction --prefer-dist --optimize-autoloader
     fi
   else
-    if [ "$LAGOON_ENVIRONMENT" == "local" ]; then
-      /app/lagoon/laravel-install.sh
-    fi
+    /app/lagoon/laravel-install.sh
   fi
 fi
 
