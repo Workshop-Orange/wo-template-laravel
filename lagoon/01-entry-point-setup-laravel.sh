@@ -65,6 +65,8 @@ fix-permissions /app/storage/img/invoice_file
 
 cd /app
 
+export
+
 if [ -f "artisan" ] && [ "$LAGOON_ENVIRONMENT" != "local" ] ; then
   php artisan config:clear
   php artisan route:clear

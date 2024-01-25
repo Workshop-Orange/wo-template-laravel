@@ -19,3 +19,7 @@ rm -rf tests/
 rm -rf vendor/
 rm -rf vendor/
 rm -rf vite.config.js
+
+rm -rf storage
+
+cp .gitignore.default .gitignore

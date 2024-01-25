@@ -22,6 +22,9 @@ rsync -a \
   . /app
 #  --dry-run \
 
+echo "### Laravel Standard Gitignore" >> /app/.gitignore
+cat .gitignore >> /app/.gitignore
+
 echo "Laravel synced to the app directory"
 cd /app
 
