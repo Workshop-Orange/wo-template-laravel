@@ -1,0 +1,130 @@
+version: '2.3'
+
+x-lagoon-project:
+  &lagoon-project iscoutla
+
+x-environment:
+  &default-environment
+    LAGOON_PROJECT: *lagoon-project
+    LAGOON_ROUTE: http://wo-webapp-iscoutla-us.docker.amazee.io
+    LAGOON_ENVIRONMENT: local
+    #XDEBUG_ENABLE: "true"
+
+services:
+  # SERVICE: cli
+  cli:
+    networks:
+      - amazeeio-network
+      - default
+    build:
+      context: .
+      dockerfile: lagoon/cli.dockerfile
+    image: &cli-image ${COMPOSE_PROJECT_NAME:-wo-webapp-iscoutla-us}-cli 
+    labels:
+      lagoon.type: cli-persistent
+      lagoon.persistent.name: nginx
+      lagoon.persistent: /app/storage
+    volumes:
+      - ./:/app:delegated
+    volumes_from: 
+      - container:amazeeio-ssh-agent
+    environment:
+      << : *default-environment 
+
+  # SERVICE: nginx
+  nginx:
+    networks:
+      - amazeeio-network
+      - default
+    build:
+      context: .
+      dockerfile: lagoon/nginx.dockerfile
+      args:
+        CLI_IMAGE: *cli-image 
+    labels:
+      lagoon.type: nginx-php-persistent
+      lagoon.name: nginx
+      lagoon.persistent: /app/storage
+    environment:
+      << : *default-environment 
+    volumes:
+      - ./:/app:delegated
+    depends_on:
+      - cli
+      - redis
+      - mariadb
+
+
+  # SERVICE: php 
+  php:
+    networks:
+      - amazeeio-network
+      - default
+    build:
+      context: .
+      dockerfile: lagoon/php.dockerfile
+      args:
+        CLI_IMAGE: *cli-image
+    labels:
+      lagoon.type: nginx-php-persistent
+      lagoon.name: nginx
+      lagoon.persistent: /app/storage/
+    volumes:
+      - ./:/app:delegated
+    depends_on:
+      - cli
+      - redis
+      - mariadb
+    environment:
+      << : *default-environment 
+
+  # SERVICE: worker
+  worker:
+    networks:
+      - amazeeio-network
+      - default
+    build:
+      context: .
+      dockerfile: lagoon/worker.dockerfile
+      args:
+        CLI_IMAGE: *cli-image
+    labels:
+      lagoon.type: worker-persistent
+      lagoon.name: worker
+      lagoon.persistent.name: nginx
+      lagoon.persistent: /app/storage/
+    volumes:
+      - ./:/app:delegated
+    depends_on:
+      - cli
+      - redis
+      - mariadb
+    environment:
+      << : *default-environment
+
+  # SERVICE: mariadb
+  mariadb:
+    networks:
+      - amazeeio-network
+      - default
+    image: amazeeio/mariadb
+    labels:
+      lagoon.type: mariadb
+
+  # SERVICE: redis
+  redis:
+    networks:
+      - amazeeio-network
+      - default
+    build:
+      context: .
+      dockerfile: lagoon/redis.dockerfile
+    image: amazeeio/redis-persistent
+    labels:
+      lagoon.type: redis-persistent
+    environment:
+      << : *default-environment 
+      
+networks:
+  amazeeio-network:
+    external: true

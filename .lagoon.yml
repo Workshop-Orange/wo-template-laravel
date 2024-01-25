@@ -1,0 +1,26 @@
+docker-compose-yaml: docker-compose-lagoon.yml
+
+tasks:
+  post-rollout:
+    - run:
+        name: Run post-rollout non-prod tasks cli
+        command: /app/lagoon/tasks/post-rollout-non-prod
+        service: cli
+        when: LAGOON_ENVIRONMENT_TYPE != "production"
+    - run:
+        name: Run post-rollout prod tasks cli
+        command: /app/lagoon/tasks/post-rollout-prod
+        when: LAGOON_ENVIRONMENT_TYPE == "production"
+        service: cli
+
+lagoon-sync:
+  mariadb:
+    config:
+      hostname: "$MARIADB_HOST"
+      username: "$MARIADB_USERNAME"
+      password: "$MARIADB_PASSWORD"
+      port: "$MARIADB_PORT"
+      database: "$MARIADB_DATABASE"
+  files:
+    config:
+      sync-directory: "/app/storage"
