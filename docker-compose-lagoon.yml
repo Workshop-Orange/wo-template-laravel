@@ -29,6 +29,7 @@ services:
     volumes_from: 
       - container:amazeeio-ssh-agent
     environment:
+      SERVICE_NAME: cli
       << : *default-environment 
 
   # SERVICE: nginx
@@ -46,6 +47,7 @@ services:
       lagoon.name: nginx
       lagoon.persistent: /app/storage
     environment:
+      SERVICE_NAME: nginx
       << : *default-environment 
     volumes:
       - ./:/app:delegated
@@ -76,6 +78,7 @@ services:
       - redis
       - mariadb
     environment:
+      SERVICE_NAME: php
       << : *default-environment 
 
   # SERVICE: worker
@@ -100,6 +103,7 @@ services:
       - redis
       - mariadb
     environment:
+      SERVICE_NAME: worker
       << : *default-environment
 
   # SERVICE: mariadb
@@ -110,6 +114,8 @@ services:
     image: amazeeio/mariadb
     labels:
       lagoon.type: mariadb
+    environment:
+      SERVICE_NAME: worker
 
   # SERVICE: redis
   redis:
@@ -123,6 +129,7 @@ services:
     labels:
       lagoon.type: redis-persistent
     environment:
+      SERVICE_NAME: worker
       << : *default-environment 
       
 networks:
