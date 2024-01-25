@@ -83,7 +83,7 @@ if [ "$LAGOON_ENVIRONMENT_TYPE" == "production" ]; then
     php artisan event:cache
     php artisan optimize
   fi
-elif [ "$LAGOON_ENVIRONMENT_TYPE" == "development" ] && [ "$SERVICE_NAME" == "cli" ]; then
+elif [ "$LAGOON_LARAVEL_SEED_DB" == "true" ] && [ "$LAGOON_ENVIRONMENT_TYPE" == "development" ] && [ "$SERVICE_NAME" == "cli" ]; then
   if [ -f "artisan" ]; then
     TABLES=`echo "show tables" | mysql -h$DB_HOST -u$DB_USERNAME -p$DB_PASSWORD $DB_DATABASE`
 
@@ -97,7 +97,6 @@ elif [ "$LAGOON_ENVIRONMENT_TYPE" == "development" ] && [ "$SERVICE_NAME" == "cl
     echo "Skipping DB loading check - Laravel is not installed"
   fi
 fi
-
 
 if [ "$LAGOON_ENVIRONMENT" == "local" ] && [ "$SERVICE_NAME" == "cli" ]; then
   if [ -f "composer.json" ]; then

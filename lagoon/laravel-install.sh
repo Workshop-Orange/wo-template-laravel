@@ -22,6 +22,7 @@ rsync -a \
   . /app
 #  --dry-run \
 
+echo "" >> /app/.gitignore
 echo "### Laravel Standard Gitignore" >> /app/.gitignore
 cat .gitignore >> /app/.gitignore
 
