@@ -1,3 +1,4 @@
 .env
 _tmp-laravel
 supervisord.log
+storage
