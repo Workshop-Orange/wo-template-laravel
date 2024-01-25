@@ -1,4 +1,6 @@
+# wo-template-laravel defaults
 .env
 _tmp-laravel
 supervisord.log
 storage
+
