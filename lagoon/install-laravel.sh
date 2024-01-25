@@ -11,5 +11,5 @@ rsync -va \
   --exclude ".gitignore" \
   --exclude ".env*" \
   --exclude "README.md" \
-#  --dry-run \
   . /app
+#  --dry-run \
