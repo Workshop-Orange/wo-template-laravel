@@ -1,9 +1,14 @@
 #!/bin/sh
 
-COUNT=`ps ax | grep horizon:work | grep -v grep | wc -l`
+if [ -f "/app/config/horizon.php"; ]; then
+  COUNT=`ps ax | grep horizon:work | grep -v grep | wc -l`
 
-if [ $COUNT -gt 0 ]; then
+  if [ $COUNT -gt 0 ]; then
 	echo Horizon is running
-else
+  else
 	echo Horizon is not running
+  fi
+else
+  echo "[Status] - Horizon is not installed";
+  sleep 10
 fi
