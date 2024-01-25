@@ -38,6 +38,7 @@ RUN if [ -f "composer.json" ]; then \
   fi
 
 RUN if [ -f "package.json" ]; then \
+    npm install; \
     npm ci; \
     npm run build; \
   fi
