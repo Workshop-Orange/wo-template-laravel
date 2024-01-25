@@ -1,4 +1,15 @@
 #!/bin/sh
 
-composer global require laravel/installer:^5.3
-laravel new _tmp-laravel
+if [ ! -f "/app/_tmp-laravel/composer.json" ]; then
+  composer create-project laravel/laravel _tmp-laravel
+fi
+
+cd _tmp-laravel
+
+rsync -va \
+  --exclude ".git" \
+  --exclude ".gitignore" \
+  --exclude ".env*" \
+  --exclude "README.md" \
+  --dry-run \
+  . /app

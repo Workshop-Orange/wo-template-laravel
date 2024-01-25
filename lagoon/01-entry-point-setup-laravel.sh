@@ -103,10 +103,8 @@ if [ -f "composer.json" ]; then
     fi
   fi
 else
-  if [ ! -f "/app/_tmp-laravel/composer.json" ]; then
-    composer create-project laravel/laravel _tmp-laravel
+  if [ "$LAGOON_ENVIRONMENT" == "local" ]; then
+    /app/lagoon/install-laravel.sh
   fi
-
-
 fi
 
