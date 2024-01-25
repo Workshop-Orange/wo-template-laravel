@@ -31,6 +31,9 @@ services:
     environment:
       SERVICE_NAME: cli
       << : *default-environment 
+    depends_on:
+      - redis
+      - mariadb
 
   # SERVICE: nginx
   nginx:
