@@ -13,10 +13,12 @@ RUN mkdir -p /app/storage/img/invoice_file
 RUN mkdir -p /home/.config/psysh
 RUN fix-permissions /home/.config/psysh
 
-COPY lagoon/01-entry-point-setup-laravel.sh /lagoon/entrypoints/98-env-setup-laravel.sh
-
 #######################################################
 # Copy the prebuild laravel app to the Nginx container
 #######################################################
 COPY --from=cli /app /app
 
+#######################################################
+# Finalize Environment
+#######################################################
+COPY lagoon/01-entry-point-setup-laravel.sh /lagoon/entrypoints/98-env-setup-laravel.sh

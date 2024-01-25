@@ -2,7 +2,7 @@
 
 # LAGOON_ENVIRONMENT_TYPE="TEST"
 
-if [ -f "/app/config/horizon.php"; ]; then
+if [ -f "/app/config/horizon.php" ]; then
   /usr/local/bin/php artisan horizon
 else
   echo "Horizon is not installed";
