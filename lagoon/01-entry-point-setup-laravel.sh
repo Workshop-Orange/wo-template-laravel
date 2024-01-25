@@ -96,7 +96,7 @@ elif [ "$SERVICE_NAME" == "cli" ]; then
     fi
 fi
 
-if [ "$LAGOON_ENVIRONMENT" == "local" && "$LAGOON" == "cli" ]; then
+if [ "$LAGOON_ENVIRONMENT" == "local" ]; && [ "$LAGOON" == "cli" ]; then
   if [ -f "composer.json" ]; then
     if [ ! -f "/app/vendor/autoload.php" ]; then
       COMPOSER_MEMORY_LIMIT=-1 composer install --no-interaction --prefer-dist --optimize-autoloader
