@@ -104,7 +104,7 @@ if [ -f "composer.json" ]; then
   fi
 else
   if [ "$LAGOON_ENVIRONMENT" == "local" ]; then
-    /app/lagoon/install-laravel.sh
+    /app/lagoon/laravel-install.sh
   fi
 fi
 

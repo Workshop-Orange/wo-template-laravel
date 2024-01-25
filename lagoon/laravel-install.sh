@@ -6,7 +6,7 @@ fi
 
 cd _tmp-laravel
 
-rsync -va \
+rsync -a \
   --exclude ".git" \
   --exclude ".gitignore" \
   --exclude ".env*" \
