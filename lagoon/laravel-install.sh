@@ -35,6 +35,11 @@ cd /app
 /app/lagoon/laravel-install-horizon.sh
 
 ##########################################
+# Initial Frontend Build
+##########################################
+/app/lagoon/laravel-install-frontend.sh
+
+##########################################
 # Install Horizon
 ##########################################
 echo "Complete!"
