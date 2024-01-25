@@ -1,4 +1,5 @@
 #!/bin/sh
+rm -rf _tmp-laravel/
 
 rm -rf .editorconfig
 rm -rf .gitattributes
