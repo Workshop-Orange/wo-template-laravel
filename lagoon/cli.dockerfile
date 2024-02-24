@@ -1,5 +1,5 @@
 FROM uselagoon/lagoon-cli:latest as LAGOONCLI
-FROM amazeeio/php:8.2-cli
+FROM amazeeio/php:8.3-cli
 
 #######################################################
 # Install PHP extensions

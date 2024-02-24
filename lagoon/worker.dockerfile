@@ -4,7 +4,7 @@ FROM ${CLI_IMAGE}
 #######################################################
 # Replace the php.ini
 #######################################################
-COPY lagoon/worker-php.ini /usr/local/etc/php/php.ini
+# COPY lagoon/worker-php.ini /usr/local/etc/php/php.ini
 
 #######################################################
 # Install Supervisord

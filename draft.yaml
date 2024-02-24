@@ -1,0 +1,34 @@
+models:
+  JobApplication:
+    advert_url: string:400 nullable
+    date_applied: dateTime nullable
+    salary_annual: number nullable
+    salary_currency: string:3 nullable
+    job_application_company_id: id foreign nullable
+    job_application_role_id: id foreign nullable
+    user_id: id foreign 
+    relationships:
+      hasMany: JobApplicationField
+
+  JobApplicationCompany:
+    title: string:255
+    relationships:
+      hasMany: JobApplication
+
+  JobApplicationRole:
+    title: string:255
+    relationships:  
+      hasMany: JobApplication
+
+  JobApplicationField:
+    title: string:400
+    user_id: id foreign
+    relationships:
+      hasMany: JobApplicationFieldValue
+
+  JobApplicationFieldValue:
+    data: string:400
+    job_application_field_id: id foreign
+    job_application_id: id foreign
+
+seeders: JobApplication, JobApplicationCompany, JobApplicationRole, JobApplicationField, JobApplicationFieldValue

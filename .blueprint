@@ -1,0 +1,28 @@
+created:
+    - database/factories/JobApplicationFactory.php
+    - database/factories/JobApplicationCompanyFactory.php
+    - database/factories/JobApplicationRoleFactory.php
+    - database/factories/JobApplicationFieldFactory.php
+    - database/factories/JobApplicationFieldValueFactory.php
+    - database/migrations/2024_02_15_041020_create_job_applications_table.php
+    - database/migrations/2024_02_15_041021_create_job_application_companies_table.php
+    - database/migrations/2024_02_15_041022_create_job_application_roles_table.php
+    - database/migrations/2024_02_15_041023_create_job_application_fields_table.php
+    - database/migrations/2024_02_15_041024_create_job_application_field_values_table.php
+    - app/Models/JobApplication.php
+    - app/Models/JobApplicationCompany.php
+    - app/Models/JobApplicationRole.php
+    - app/Models/JobApplicationField.php
+    - app/Models/JobApplicationFieldValue.php
+    - database/seeders/JobApplicationSeeder.php
+    - database/seeders/JobApplicationCompanySeeder.php
+    - database/seeders/JobApplicationRoleSeeder.php
+    - database/seeders/JobApplicationFieldSeeder.php
+    - database/seeders/JobApplicationFieldValueSeeder.php
+models:
+    User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string:100 nullable' }
+    JobApplication: { advert_url: 'string:400 nullable', date_applied: 'dateTime nullable', salary_annual: 'number nullable', salary_currency: 'string:3 nullable', job_application_company_id: 'id foreign nullable', job_application_role_id: 'id foreign nullable', user_id: 'id foreign', relationships: { hasMany: JobApplicationField } }
+    JobApplicationCompany: { title: 'string:255', relationships: { hasMany: JobApplication } }
+    JobApplicationRole: { title: 'string:255', relationships: { hasMany: JobApplication } }
+    JobApplicationField: { title: 'string:400', user_id: 'id foreign', relationships: { hasMany: JobApplicationFieldValue } }
+    JobApplicationFieldValue: { data: 'string:400', job_application_field_id: 'id foreign', job_application_id: 'id foreign' }
